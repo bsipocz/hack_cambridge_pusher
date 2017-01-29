@@ -26,11 +26,18 @@
         var lat = document.getElementById('lat').value;
         lon = parseFloat(lon);
         lat = parseFloat(lat);
-        if(isNaN(lon))
+        if(isNaN(lon)){
           alert("lon not a float!");
-        if(isNaN(lat))
+          return;
+        }
+        if(isNaN(lat)){
           alert("lat not a float!");
+          return;
+        }
         myFeed.append({Longitude: lon, Latitude: lat});
+      }
+
+      function clearFeed() {
       }
     </script>
 
@@ -40,5 +47,6 @@
     Latitude : <input type="text" name="lat"  id="lat" ><br>
     <input type="button" onclick="sendLoc()" value="Submit"> <br>
 
+    <button type="button" onclick="clearFeed()">Clear feed (use with caution)</button> <br><br>
   </body>
 </html>
