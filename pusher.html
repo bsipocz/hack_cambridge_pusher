@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://js.pusher.com/platform/latest/pusher-platform.js"></script>
+  </head>
+  <body>
+    <script>
+      var app = new PusherPlatform.App({
+        appId: '8cbbbe43-6407-466e-aea1-0f6852721f72',
+      });
+
+      var myFeed = app.feed('locations');
+
+      myFeed.subscribe({
+        onOpen: () => console.log('Connection established'),
+        onItem: item => console.log('Item:', item),
+        onError: error => console.error('Error:', error),
+      });
+
+      myFeed.append('Hello, Hack Cambridge!')
+      .then(response => console.log('Success:', response))
+      .catch(err => console.error('Error:', err));
+
+      function sendLoc() {
+        var lon = document.getElementById('lon').value;
+        var lat = document.getElementById('lat').value;
+        lon = parseFloat(lon);
+        lat = parseFloat(lat);
+        if(isNaN(lon))
+          alert("lon not a float!");
+        if(isNaN(lat))
+          alert("lat not a float!");
+        myFeed.append({Longitude: lon, Latitude: lat});
+      }
+    </script>
+
+    <h1>Location Pusher</h1>
+
+    Longitude: <input type="text" name="lon" id="lon" ><br>
+    Latitude : <input type="text" name="lat"  id="lat" ><br>
+    <input type="button" onclick="sendLoc()" value="Submit"> <br>
+
+  </body>
+</html>
